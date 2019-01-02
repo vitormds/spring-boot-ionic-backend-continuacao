@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vitor.cursomc.domain.Categoria;
 import com.vitor.cursomc.services.CategoriaService;
 
+
 @RestController
 @RequestMapping(value="/categorias")
 public class CategoriaResource {
@@ -23,6 +24,7 @@ public class CategoriaResource {
 		public ResponseEntity<?> find(@PathVariable Integer id) {
 			
 			Categoria obj = service.buscar(id);
+			
 			return ResponseEntity.ok().body(obj);
 		}
 }
