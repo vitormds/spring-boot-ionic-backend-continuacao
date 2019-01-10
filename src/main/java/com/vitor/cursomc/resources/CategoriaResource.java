@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ import com.vitor.cursomc.services.CategoriaService;
 public class CategoriaResource {
 		@Autowired
 		private CategoriaService service;
+		
+		
 		@RequestMapping(value="/{id}", method=RequestMethod.GET)
 		public ResponseEntity<Categoria> find(@PathVariable Integer id) {
 			
@@ -32,16 +36,21 @@ public class CategoriaResource {
 			
 			return ResponseEntity.ok().body(obj);
 		}
+		
+		
 		@RequestMapping(method=RequestMethod.POST)
-		public ResponseEntity<Void> insert(@RequestBody Categoria obj){
-			
+		public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDto objDto){
+			Categoria obj = service.FromDTO(objDto);
 			obj = service.insert(obj);
 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().
 					path("/{id}").buildAndExpand(obj.getId()).toUri();
 			return ResponseEntity.created(uri).build();
 		}
+		
+		
 		@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-		public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
+		public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDto objDto, @PathVariable Integer id){
+			Categoria obj = service.FromDTO(objDto);
 			obj.setId(id);
 			obj = service.update(obj);
 			return ResponseEntity.noContent().build();
