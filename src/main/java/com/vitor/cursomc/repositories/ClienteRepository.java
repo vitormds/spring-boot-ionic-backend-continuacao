@@ -10,6 +10,8 @@ import com.vitor.cursomc.domain.Cliente;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
+	
+	// retornando o email no banco
 	 @Transactional(readOnly=true)
 	Cliente findByEmail(String email);
 }
