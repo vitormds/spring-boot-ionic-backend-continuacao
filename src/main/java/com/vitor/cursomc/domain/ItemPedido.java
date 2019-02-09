@@ -26,6 +26,9 @@ public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quant
 	this.quantidade = quantidade;
 	this.preco = preco;
 }
+public double getSubTotal() {
+	return (preco - desconto) * quantidade;
+}
 @JsonIgnore
 public Pedido getPedido() {
 	return id.getPedido();
