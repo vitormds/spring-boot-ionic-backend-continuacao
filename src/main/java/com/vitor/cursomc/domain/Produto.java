@@ -24,6 +24,7 @@ public class Produto implements Serializable {
 	private Integer id;
 	private String nome;
 	private Double preco;
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
@@ -83,6 +84,13 @@ public class Produto implements Serializable {
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
 
 	@Override
 	public int hashCode() {
@@ -109,13 +117,7 @@ public class Produto implements Serializable {
 		return true;
 	}
 
-	public Set<ItemPedido> getItens() {
-		return itens;
-	}
 
-	public void setItens(Set<ItemPedido> itens) {
-		this.itens = itens;
-	}
 	
 	
 	

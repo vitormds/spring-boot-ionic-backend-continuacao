@@ -12,14 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
 import com.vitor.cursomc.domain.Cliente;
-import com.vitor.cursomc.domain.enums.TipoCliente;
 import com.vitor.cursomc.dto.ClienteDto;
 import com.vitor.cursomc.repositories.ClienteRepository;
 import com.vitor.cursomc.resources.exception.FieldMessage;
-import com.vitor.cursomc.services.validation.utils.BR;
-
-import aj.org.objectweb.asm.Handle;
-
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDto> {
 	
 	@Autowired HttpServletRequest request;
