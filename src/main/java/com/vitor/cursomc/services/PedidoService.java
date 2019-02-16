@@ -10,6 +10,7 @@ import com.vitor.cursomc.domain.ItemPedido;
 import com.vitor.cursomc.domain.PagamentoComBoleto;
 import com.vitor.cursomc.domain.Pedido;
 import com.vitor.cursomc.domain.enums.EstadoPagamento;
+import com.vitor.cursomc.repositories.ClienteRepository;
 import com.vitor.cursomc.repositories.ItemPedidoRepository;
 import com.vitor.cursomc.repositories.PagamentoRepository;
 import com.vitor.cursomc.repositories.PedidoRepository;
@@ -22,6 +23,7 @@ public class PedidoService {
 	@Autowired private PagamentoRepository pagamentoRepository;
 	@Autowired private ItemPedidoRepository itemPedidoRepository;
 	@Autowired private ProdutoService produtoService;
+	@Autowired  private ClienteService clienteService;
 	
 	
 	public Pedido find(Integer id)   {
@@ -34,6 +36,7 @@ public class PedidoService {
 	@Transactional
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
+		obj.setCliente(clienteService.find(obj.getCliente().getId()));
 		obj.setInstante(new Date());
 		obj.getPagamento().setEstado(EstadoPagamento.PEDENTE);
 		obj.getPagamento().setPedido(obj);
@@ -45,10 +48,12 @@ public class PedidoService {
 		pagamentoRepository.save(obj.getPagamento());
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());
+			ip.setProduto(produtoService.find(ip.getProduto().getId()));
+			ip.setPreco(ip.getProduto().getPreco());
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());
+		System.out.println(obj);
 		return obj;
 	}
 }
