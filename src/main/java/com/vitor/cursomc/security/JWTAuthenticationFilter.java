@@ -59,5 +59,6 @@ public class JWTAuthenticationFilter  extends UsernamePasswordAuthenticationFilt
 		String username = ((UserSS) auth.getPrincipal()).getUsername();
         String token = jwtUtil.generateToken(username);
         res.addHeader("Authorization", "Bearer " + token);
+        res.addHeader("access-control-expose-headers", "Authorization");
 	}
 }
