@@ -150,9 +150,6 @@ public class DBService {
 		p49.getCategorias().add(cat1);
 		p50.getCategorias().add(cat1);
 		
-		
-		
-		 
 		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
 		cat2.getProdutos().addAll(Arrays.asList(p2,p4));
 		cat3.getProdutos().addAll(Arrays.asList(p5,p6));
